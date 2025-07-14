@@ -5,7 +5,7 @@ FROM amazoncorretto:17
 WORKDIR /app
 
 # Copy the built jar into the container
-COPY target/produktservice-0.0.1 app.jar
+COPY target/produktservice-0.0.1.jar app.jar
 
 # Expose the port your app runs on (Spring Boot default is 8080)
 EXPOSE 8080
