@@ -5,7 +5,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.openapitools.api.ProduktApi;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import prv.fries.produktservice.generated.ProduktDto;
 import prv.fries.produktservice.generated.ProduktVerfuegbarDto;
@@ -32,10 +31,14 @@ public class ProduktController implements ProduktApi {
     }
 
     @Override
-    public ResponseEntity<List<ProduktVerfuegbarDto>> pruefeVerfuegbarkeit( @Valid @RequestBody List<@Valid ProduktVerfuegbarkeitDto> produktVerfuegbarkeitDto) {
-        List<ProduktVerfuegbarDto> uberpruefteProdukte = produktService.pruefeVerfuegbarkeit(produktVerfuegbarkeitDto);
-        return ResponseEntity.ok(uberpruefteProdukte);
+    public ResponseEntity<ProduktVerfuegbarDto> pruefeVerfuegbarkeit(@Valid ProduktVerfuegbarkeitDto produktVerfuegbarkeitDto) {
+        var ueberprueftePositionen = produktService.pruefeVerfuegbarkeit(produktVerfuegbarkeitDto.getPositionen());
+        ProduktVerfuegbarDto dto = new ProduktVerfuegbarDto();
+        dto.setPositionen(ueberprueftePositionen);
+        dto.setBestellId(produktVerfuegbarkeitDto.getBestellId());
+        return ResponseEntity.ok(dto);
     }
+
 
 
 
