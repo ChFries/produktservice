@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
-import prv.fries.produktservice.generated.ProduktVerfuegbarDto;
+import prv.fries.produktservice.generated.client.payment.BestellungDto;
 
 @Service
 @RequiredArgsConstructor
@@ -15,8 +15,8 @@ public class RabbitMQPublisher {
 
     private final RabbitTemplate rabbitTemplate;
 
-    public void publishPruefungAbgeschlossen(ProduktVerfuegbarDto verfuegbareProdukte) {
-        log.info("Pruefung abgeschlossen für {}", verfuegbareProdukte.getBestellId());
-        rabbitTemplate.convertAndSend(ROUTING_KEY, verfuegbareProdukte);
+    public void publishPruefungAbgeschlossen(BestellungDto bestellungDto) {
+        log.info("Pruefung abgeschlossen für {}", bestellungDto.getId());
+        rabbitTemplate.convertAndSend(ROUTING_KEY, bestellungDto);
     }
 }
