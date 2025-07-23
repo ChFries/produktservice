@@ -17,8 +17,6 @@ public class RabbitMQListenerConfiguration {
     public static final String QUEUE_NAME = "bestellung.bestellung.angelegt";
     public static final String ROUTING_KEY = "bestellung.angelegt";
 
-
-
     @Bean
     public Queue bestellungAngelegtQueue() {
         return new Queue(QUEUE_NAME, true);

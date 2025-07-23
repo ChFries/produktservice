@@ -157,25 +157,6 @@
                             </configOptions>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>bestellungen-client</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/contract/client/bestellungen.yaml</inputSpec>
-                            <generatorName>java</generatorName>
-                            <generateApiTests>false</generateApiTests>
-                            <generateModelTests>false</generateModelTests>
-                            <configOptions>
-                                <modelPackage>prv.fries.produktservice.generated.client.payment</modelPackage>
-                                <library>resttemplate</library>
-                                <useTags>true</useTags>
-                                <useJakartaEe>true</useJakartaEe>
-                                <useSpringBoot3>true</useSpringBoot3>
-                            </configOptions>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
         </plugins>
