@@ -16,7 +16,6 @@ public class RabbitMQPublisher {
     private final RabbitTemplate rabbitTemplate;
 
     public void publishPruefungAbgeschlossen(BestellungDto bestellungDto) {
-        log.info("Pruefung abgeschlossen für {}", bestellungDto.getId());
         rabbitTemplate.convertAndSend(ROUTING_KEY, bestellungDto);
     }
 }

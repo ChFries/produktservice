@@ -24,23 +24,27 @@ public class ProduktService {
     }
 
     private void createOrUpdateProduct(BestellPositionDto position) {
-        var produkt = produktRepository.findById(position.getProduktId());
-        produkt.ifPresentOrElse(
-                prod -> {
-                    var lagerMenge = getLagerMenge(prod.getLagerbestand(), position.getMenge());
-                    prod.setLagerbestand(lagerMenge);
-                    produktRepository.save(prod);
-                },
-                () -> {
-                    var prod = new Produkt();
-                    prod.setLagerbestand(BigDecimal.valueOf(position.getMenge()));
-                    prod.setName("");
-                    prod.setPreis(position.getEinzelpreis());
-                    produktRepository.save(prod);
-                }
-        );
+        Produkt produkt = produktRepository.findById(position.getProduktId())
+                .orElseGet(() -> {
+                    Produkt neu = new Produkt();
+                    neu.setName("");
+                    neu.setPreis(position.getEinzelpreis());
+                    neu.setLagerbestand(BigDecimal.ZERO);
+                    return neu;
+                });
+
+//        BigDecimal neueMenge = getLagerMenge(produkt.getLagerbestand(), position.getMenge());
+        BigDecimal neueMenge = BigDecimal.valueOf(position.getMenge());
+        produkt.setLagerbestand(neueMenge);
+
+        produktRepository.save(produkt);
         position.setVerfuegbar(Boolean.TRUE);
     }
+
+//    private void createOrUpdateProduct(BestellPositionDto position) {
+//        position.setVerfuegbar(Boolean.TRUE);
+//    }
+
 
     private BigDecimal getLagerMenge(BigDecimal lagerMenge, Integer positionsMenge) {
         return lagerMenge.compareTo(BigDecimal.valueOf(positionsMenge)) == -1 ? BigDecimal.valueOf(positionsMenge) : lagerMenge ;
