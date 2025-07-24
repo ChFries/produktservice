@@ -2,6 +2,7 @@ package prv.fries.produktservice.rest;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.openapitools.api.ProduktApi;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class ProduktController implements ProduktApi {
 
     private final ProduktService produktService;
@@ -30,6 +32,7 @@ public class ProduktController implements ProduktApi {
 
     @Override
     public ResponseEntity<BestellungDto> pruefeVerfuegbarkeit(BestellungDto bestellungDto) {
+        log.info("[REST] Uberpruefe Verfuegbarkeit von Positionen der Bestellung {}", bestellungDto.getId());
         var response = produktService.ueberpruefeVerfuegbarkeit(bestellungDto);
         return ResponseEntity.ok(response);
     }

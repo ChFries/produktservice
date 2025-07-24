@@ -2,7 +2,6 @@ package prv.fries.produktservice.service;
 
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import prv.fries.produktservice.entity.Produkt;
 import prv.fries.produktservice.generated.BestellPositionDto;
@@ -13,7 +12,6 @@ import java.math.BigDecimal;
 
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
 public class ProduktService {
 

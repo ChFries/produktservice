@@ -19,6 +19,7 @@ public class ProduktServiceRabbit {
 
     @RabbitListener(queues = RabbitMQListenerConfiguration.QUEUE_NAME)
     public void handleBestellungAngelegt(BestellungDto dto) {
+        log.info("[RABBITMQ] Uberpruefe Verfuegbarkeit von Positionen der Bestellung {}", dto.getId());
         produktService.ueberpruefeVerfuegbarkeit(dto);
         rabbitMQPublisher.publishPruefungAbgeschlossen(dto);
     }
