@@ -3,12 +3,14 @@ package prv.fries.produktservice.rabbitmq;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import prv.fries.produktservice.generated.BestellungDto;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Profile("RABBITMQ")
 public class RabbitMQPublisher {
 
     private static final String ROUTING_KEY = "bestellung.pruefung.abgeschlossen";
